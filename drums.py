@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.path as mplPath
 from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import eigsh
 from numpy.core.defchararray import index
 from numpy.lib.function_base import meshgrid
 
@@ -96,5 +97,5 @@ L = delsq(indexed_grid)
 #plt.spy(L)
 #plt.show()
 
-print(np.linalg.eigh(L)[0][:10])
+print(eigsh(L, k = 20, which = 'SM')[0])
 print(time.time() - start)
