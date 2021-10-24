@@ -1,8 +1,9 @@
 import pygame
 import numpy as np
+from drums import *
 
 win = pygame.display.set_mode((500, 500))
-pygame.display.set_caption('Random Fractals')
+pygame.display.set_caption('Drum Eigenvalue Calculator')
 pygame.font.init()
 
 class Vertex:
@@ -31,6 +32,19 @@ if __name__ == '__main__':
                 if event.key == pygame.K_SPACE:
                     mouseX, mouseY = np.array(pygame.mouse.get_pos())
                     vertices.append(Vertex(mouseX, mouseY))
+                if event.key == pygame.K_SLASH:
+                    x, y = [], []
+                    for v in vertices:
+                        x.append(v.pos[0])
+                        y.append(v.pos[1])
+                    x.append(vertices[-1].pos[0])
+                    y.append(vertices[-1].pos[1])
+                    x, y = np.array(x), np.array(y)
+                    scale = max([np.max(x), np.max(y)])
+                    x, y = 5 * x / scale, 5 * y / scale
+
+                    s = Solver(x, y, ngrid = 16)
+                    print(s.solve())
 
         if drag:
             mouse = np.array(pygame.mouse.get_pos())
@@ -50,4 +64,4 @@ if __name__ == '__main__':
 
         pygame.display.update()
 
-        print(len(vertices))
+        
