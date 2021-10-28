@@ -51,6 +51,9 @@ if __name__ == '__main__':
                     for i in range(3):
                         for j in range(3):        
                             axes[i, j].imshow(undelsq(s.eigvecs[3*i+j], s.indexed_grid), interpolation = 'none')
+                            # TODO Add separate colorbars
+                            # TODO Email Charlie Reid
+                    #fig.colorbar(undelsq(s.eigvecs[0], s.indexed_grid))
 
         if drag:
             mouse = np.array(pygame.mouse.get_pos())
