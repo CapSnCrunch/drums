@@ -12,7 +12,8 @@ from numpy.lib.function_base import meshgrid
 # h = 1 / ngrid
 
 def index_array(array):
-    '''Takes in a binary array describing a region and indexes its points to represent vectorized functions'''
+    '''Takes in a binary array describing a region and indexes its points to represent
+        vectorized functions'''
     array = np.copy(array)
     counter = 1
     (m, n) = array.shape
@@ -24,8 +25,8 @@ def index_array(array):
     return array
 
 def delsq(array):
-    '''Takes an indexed array representing a region and returns the discretized laplacian operator for 
-        vectorized functions in that region'''
+    '''Takes an indexed array representing a region and returns the discretized laplacian operator
+        for vectorized functions in that region'''
     rows = []
     cols = []
     data = []
@@ -49,6 +50,17 @@ def delsq(array):
     size = int(np.max(array))
     return csr_matrix((data, (rows, cols)), shape=(size, size)).toarray()
 
+def undelsq(func, array):
+    '''Takes a vectorized function and an indexed array and returns a 2D array
+        representing the function'''
+    (m, n) = array.shape
+    temp = np.zeros((m, n))
+    for i in range(m):
+        for j in range(n):
+            if array[i][j] != 0:
+                temp[i][j] = func[int(array[i][j]-1)]
+    return temp
+
 class Solver:
     def __init__(self, x, y, ngrid = 16):
         ''' x : an np.array of x coordinates describing a boundary
@@ -59,9 +71,13 @@ class Solver:
         self.y = y
         self.ngrid = ngrid
         self.h = 1/ngrid
+        self.indexed_grid = []
+        self.eigvals = []
+        self.eigvecs = []
 
     def solve(self, k = 20):
-        '''Returns the first k eigenvalues of the negative laplacian on the boundary described by x and y'''
+        '''Finds the first k eigenvalues and eigenvectors of the negative
+            laplacian on the boundary described by x and y'''
 
         # Create a lattice of points spaced by h
         dx, dy = np.meshgrid(np.arange(0, np.max(self.x) + self.h, self.h), np.arange(0, np.max(self.y) + self.h, self.h))
@@ -89,13 +105,18 @@ class Solver:
                 grid[i][j] = 1
 
         # Index grid for vectorized functions
-        indexed_grid = index_array(grid)
+        self.indexed_grid = index_array(grid)
 
         # Create discrete Laplacian from indexed grid
-        L = delsq(indexed_grid) / (self.h**2)
+        L = delsq(self.indexed_grid) / (self.h**2)
 
-        return eigsh(L, k = k, which = 'SM')[0]
-
+        self.eigvals, self.eigvecs = eigsh(L, k = k, which = 'SM')
+        self.eigvecs = np.transpose(self.eigvecs)
+    
+    def show_eigvec(self, n = 0):
+        '''Display the nth eigenvector'''
+        plt.imshow(undelsq(self.eigvecs[n], self.indexed_grid), interpolation = 'none')
+        plt.show()
 
 if __name__ == '__main__':
     # First isospectral region
@@ -116,6 +137,15 @@ if __name__ == '__main__':
     #y = np.array([0, size, size, 0, 0])
 
     start = time.time()
-    s = Solver(x, y, ngrid = 32)
-    print(s.solve())
+    s = Solver(x, y, ngrid = 8)
+    s.solve()
     print(time.time() - start)
+
+    #np.set_printoptions(threshold = np.inf)
+    #print(s.eigvecs[0])
+    #print(s.eigvecs[1])
+    #print(s.eigvecs[2])
+
+    s.show_eigvec(0)
+    s.show_eigvec(1)
+    s.show_eigvec(2)

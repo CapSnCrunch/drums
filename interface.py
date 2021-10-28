@@ -44,7 +44,13 @@ if __name__ == '__main__':
                     x, y = 5 * x / scale, 5 * y / scale
 
                     s = Solver(x, y, ngrid = 16)
-                    print(s.solve())
+                    s.solve()
+
+                    # Display the first 9 eigenfunctions
+                    fig, axes = plt.subplots(nrows = 3, ncols = 3, figsize = (5,5))
+                    for i in range(3):
+                        for j in range(3):        
+                            axes[i, j].imshow(undelsq(s.eigvecs[3*i+j], s.indexed_grid), interpolation = 'none')
 
         if drag:
             mouse = np.array(pygame.mouse.get_pos())
