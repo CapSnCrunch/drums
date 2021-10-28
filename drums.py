@@ -7,6 +7,8 @@ from scipy.sparse.linalg import eigsh
 from numpy.core.defchararray import index
 from numpy.lib.function_base import meshgrid
 
+# Beamer Template: https://www.overleaf.com/latex/templates/template-beamer-ufc/rvqwnmszpsvf
+
 # Density of points in approximation of region
 # ngrid = 32
 # h = 1 / ngrid
