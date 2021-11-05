@@ -17,6 +17,7 @@ class Vertex:
 if __name__ == '__main__':
     
     vertices = []
+    solver = None
 
     run = True
     drag = False
@@ -29,31 +30,40 @@ if __name__ == '__main__':
             elif event.type == pygame.MOUSEBUTTONUP:
                 drag = False
             elif event.type == pygame.KEYDOWN:
+                mouseX, mouseY = np.array(pygame.mouse.get_pos())
                 if event.key == pygame.K_SPACE:
-                    mouseX, mouseY = np.array(pygame.mouse.get_pos())
                     vertices.append(Vertex(mouseX, mouseY))
-                if event.key == pygame.K_SLASH:
-                    x, y = [], []
-                    for v in vertices:
-                        x.append(v.pos[0])
-                        y.append(v.pos[1])
-                    x.append(vertices[-1].pos[0])
-                    y.append(vertices[-1].pos[1])
-                    x, y = np.array(x), np.array(y)
-                    scale = max([np.max(x), np.max(y)])
-                    x, y = 5 * x / scale, 5 * y / scale
+                elif event.key == pygame.K_SLASH:
+                    if solver == None:
+                        x, y = [], []
+                        for v in vertices:
+                            x.append(v.pos[0])
+                            y.append(v.pos[1])
+                        x.append(vertices[-1].pos[0])
+                        y.append(vertices[-1].pos[1])
+                        x, y = np.array(x), np.array(y)
+                        scale = max([np.max(x), np.max(y)])
+                        x, y = 4 * x / scale, 4 * y / scale
 
-                    s = Solver(x, y, ngrid = 16)
-                    s.solve()
+                        solver = Solver(x, y, ngrid = 16)
+                        solver.get_eigs()
 
                     # Display the first 9 eigenfunctions
                     fig, axes = plt.subplots(nrows = 3, ncols = 3, figsize = (5,5))
                     for i in range(3):
                         for j in range(3):        
-                            axes[i, j].imshow(undelsq(s.eigvecs[3*i+j], s.indexed_grid), interpolation = 'none')
+                            axes[i, j].imshow(unvectorize(solver.eigvecs[3*i+j], solver.indexed_grid), interpolation = 'none')
                             # TODO Add separate colorbars
                             # TODO Email Charlie Reid
-                    #fig.colorbar(undelsq(s.eigvecs[0], s.indexed_grid))
+                    plt.show()
+
+                elif event.key == pygame.K_0:
+                    if solver != None:
+                        fps = 30
+                        gauss = solver.create_gaussian(1.5, 1, sigma = 0.2)
+                        solver.calc_consts(gauss)
+                        anim = solver.animate()
+                        plt.show()
 
         if drag:
             mouse = np.array(pygame.mouse.get_pos())
