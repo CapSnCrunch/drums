@@ -183,7 +183,8 @@ class Solver:
                 #print(i, end = ' ')
                 u += self.consts[i] * self.eigvecs[i] * np.sin(self.alpha * np.sqrt(self.eigvals[i]) * t / fps)
             u = unvectorize(u, self.indexed_grid)
-            im.set_array(u)
+            g = self.grid - 1
+            im.set_array(u + g)
             return [im]
 
         return animation.FuncAnimation(
@@ -200,8 +201,8 @@ if __name__ == '__main__':
     y = np.array([0, 1, 3, 2, 2, 1, 1, 0, 0])
 
     # Second isospectral region
-    #x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
-    #y = np.array([1, 2, 2, 3, 2, 1, 1, 0, 1])
+    x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
+    y = np.array([1, 2, 2, 3, 2, 1, 1, 0, 1])
 
     # Triangular region
     #x = np.array([0, 1, 2, 0])
@@ -213,7 +214,7 @@ if __name__ == '__main__':
     #y = np.array([0, size, size, 0, 0])
 
     start = time.time()
-    s = Solver(x, y, ngrid = 16)
+    s = Solver(x, y, ngrid = 32)
     s.get_eigs()
     print(time.time() - start)
 
