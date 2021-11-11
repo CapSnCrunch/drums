@@ -60,7 +60,7 @@ if __name__ == '__main__':
                 elif event.key == pygame.K_0:
                     if solver != None:
                         fps = 30
-                        gauss = solver.create_gaussian(1.5, 1, sigma = 0.2)
+                        gauss = solver.create_gaussian(1.5, 1, sigma = 0.1)
                         solver.calc_consts(gauss)
                         anim = solver.animate()
                         plt.show()

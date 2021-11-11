@@ -8,13 +8,12 @@ from scipy.sparse.linalg import eigsh
 from numpy.core.defchararray import index
 from numpy.lib.function_base import meshgrid
 
+import sounddevice as sd
+
 # Beamer Template: https://www.overleaf.com/latex/templates/template-beamer-ufc/rvqwnmszpsvf
 
-# Density of points in approximation of region
-# ngrid = 32
-# h = 1 / ngrid
-
 fps = 30
+fs = 48000
 
 def index_array(array):
     '''Takes in a binary array describing a region and indexes its points to represent
@@ -183,7 +182,8 @@ class Solver:
                 #print(i, end = ' ')
                 u += self.consts[i] * self.eigvecs[i] * np.sin(self.alpha * np.sqrt(self.eigvals[i]) * t / fps)
             u = unvectorize(u, self.indexed_grid)
-            im.set_array(u)
+            g = self.grid - 1
+            im.set_array(u + g)
             return [im]
 
         return animation.FuncAnimation(
@@ -193,11 +193,18 @@ class Solver:
                                interval = 1000 / fps, # in ms
                                )
 
+    def play_sound(self):
+        alpha = 2*np.pi * (110/2) / np.sqrt(self.eigvals[0])
+        beta = 1
+        time = np.linspace(0, 3, fs*3)
+        sound = np.array([sum([np.exp(-beta*t) * self.consts[i] * np.sin(np.sqrt(self.eigvals[i]) * alpha * t) * self.eigvecs[i][20] for i in range(10)]) for t in time])
+        print(np.max(sound))
+        sd.play(3 * sound / np.max(sound), fs)
 
 if __name__ == '__main__':
     # First isospectral region
-    x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
-    y = np.array([0, 1, 3, 2, 2, 1, 1, 0, 0])
+    #x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
+    #y = np.array([0, 1, 3, 2, 2, 1, 1, 0, 0])
 
     # Second isospectral region
     #x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
@@ -208,17 +215,20 @@ if __name__ == '__main__':
     #y = np.array([0, 2, 0, 0])
 
     # Square region
-    # size = 2
-    #x = np.array([0, 0, size, size, 0])
-    #y = np.array([0, size, size, 0, 0])
+    size = 2
+    x = np.array([0, 0, size, size, 0])
+    y = np.array([0, size, size, 0, 0])
 
     start = time.time()
-    s = Solver(x, y, ngrid = 16)
+    s = Solver(x, y, ngrid = 8)
     s.get_eigs()
     print(time.time() - start)
 
     gauss = s.create_gaussian(1.5, 1, sigma = 0.2)
     s.calc_consts(gauss)
+
+    s.play_sound()
+
     anim = s.animate()
     plt.show()
 
