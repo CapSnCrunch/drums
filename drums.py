@@ -111,8 +111,8 @@ class Solver:
                     interior_points.append(points[i,j])
         interior_points = np.transpose(np.array(interior_points))
 
-        plt.plot(self.x, self.y)
-        plt.scatter(interior_points[0], interior_points[1], s = 1)
+        plt.plot(self.x, self.y, color = np.array([191, 87, 0]) / 255)
+        plt.scatter(interior_points[0], interior_points[1], s = 5, color = np.array([191, 87, 0]) / 255)
         plt.show()
 
         # Create a binary grid denoting the points within the boundary
@@ -131,6 +131,8 @@ class Solver:
 
         # Create discrete Laplacian from indexed grid
         L = delsq(self.indexed_grid) / (self.h**2)
+
+        plt.spy(L)
 
         self.eigvals, self.eigvecs = eigsh(L, k = k, which = 'SM')
         self.eigvecs = np.transpose(self.eigvecs)
@@ -203,8 +205,8 @@ class Solver:
 
 if __name__ == '__main__':
     # First isospectral region
-    #x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
-    #y = np.array([0, 1, 3, 2, 2, 1, 1, 0, 0])
+    x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
+    y = np.array([0, 1, 3, 2, 2, 1, 1, 0, 0])
 
     # Second isospectral region
     x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
@@ -216,19 +218,15 @@ if __name__ == '__main__':
 
     # Square region
     size = 2
-    x = np.array([0, 0, size, size, 0])
-    y = np.array([0, size, size, 0, 0])
+    #x = np.array([0, 0, size, size, 0])
+    #y = np.array([0, size, size, 0, 0])
 
     start = time.time()
-<<<<<<< HEAD
-    s = Solver(x, y, ngrid = 8)
-=======
-    s = Solver(x, y, ngrid = 32)
->>>>>>> cdd3b0e1ad3ca5b6dd72d81f460e84c02a9620c3
+    s = Solver(x, y, ngrid = 4)
     s.get_eigs()
     print(time.time() - start)
 
-    gauss = s.create_gaussian(1.5, 1, sigma = 0.2)
+    gauss = s.create_gaussian(1.5, 1, sigma = 0.1)
     s.calc_consts(gauss)
 
     s.play_sound()
