@@ -13,23 +13,18 @@ Simulate ripples through arbitrarily drawn drum faces!
 **4)** Now that the solver is prepped, press '0' to run the simulation of your drawn surface!<br/>
 
 <p align='center'>
-  <img src='imgs/drawing-drum.gif' width='500'>
-  <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
-</p>
-
-<p align='center'>
-  <img src='imgs/para-color-example.gif' width='500'>
+  <img src='imgs/drawing-drum.gif' width='300'>
   <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
 </p>
 
 <p align='center' style='flex'>
-  <img src='imgs/discretization.PNG' width='400'>
-  <img src='imgs/matrix.PNG' width='400'>
-  <img src='imgs/eigenfunctions.PNG' width='400'>
+  <img src='imgs/discretization.PNG' width='250'>
+  <img src='imgs/matrix.PNG' width='250'>
+  <img src='imgs/eigenfunctions.PNG' width='250'>
   <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
 </p>
 
 <p align='center'>
-  <img src='imgs/simulation.gif' width='500'>
+  <img src='imgs/simulation.gif' width='300'>
   <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
 </p>
