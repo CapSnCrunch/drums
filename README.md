@@ -2,7 +2,7 @@
 Simulate ripples through arbitrarily drawn drum faces!
 
 <p align='center'>
-  <img src='imgs/simulation.gif' width='200'>
+  <img src='imgs/simulation.gif' width='250'>
   <h5 align = 'center'>Example of simulated waves in a star-shaped drum./h5>
 </p>
 
@@ -19,7 +19,7 @@ Simulate ripples through arbitrarily drawn drum faces!
 <br/>
 
 <p align='center'>
-  <img src='imgs/drawing-drum.gif' width='300'>
+  <img src='imgs/drawing-drum.gif' width='250'>
   <h5 align = 'center'>Drawing and editing a drum surface.</h5>
 </p>
 <br/>
