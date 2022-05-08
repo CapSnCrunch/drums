@@ -1,6 +1,7 @@
 # Drums
 Simulate ripples through arbitrarily drawn drum faces!
 
+## Steps
 **1)** Run interface.py to use the interactive pygame window.<br/><br/>
 **2)** Draw your simple, closed, polygon drum.<br/>
 &ensp;  **a)** Hover your mouse over the window and press 'SPACE' to place nodes.<br/>
