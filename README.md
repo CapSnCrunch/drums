@@ -3,7 +3,7 @@ Simulate ripples through arbitrarily drawn drum faces!
 
 <p align='center'>
   <img src='imgs/simulation.gif' width='200'>
-  <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
+  <h5 align = 'center'>Example of simulated waves in a star-shaped drum./h5>
 </p>
 
 ## Steps to Use
@@ -16,15 +16,17 @@ Simulate ripples through arbitrarily drawn drum faces!
 &ensp;  **b)** Next, you will see the sparse matrix which represents an iteration of the wave equation on this discretized drum<br/>
 &ensp;&ensp;         along with the first nine eigenfunctions of the drum. Close these windows when you are done viewing them.<br/><br/>
 **4)** Now that the solver is prepped, press '0' to run the simulation of your drawn surface!<br/>
+<br/>
 
 <p align='center'>
   <img src='imgs/drawing-drum.gif' width='300'>
-  <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
+  <h5 align = 'center'>Drawing and editing a drum surface.</h5>
 </p>
+<br/>
 
 <p align='center' style='flex'>
   <img src='imgs/discretization.PNG' height='250'>
   <img src='imgs/matrix.PNG' height='250'>
   <img src='imgs/eigenfunctions.PNG' height='250'>
-  <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
+  <h5 align = 'center'>Example of discretization, sparse finite-difference matrix, and eigenfunctions of the above drum.</h5>
 </p>
