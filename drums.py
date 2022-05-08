@@ -10,7 +10,7 @@ from numpy.lib.function_base import meshgrid
 
 import sounddevice as sd
 
-# Beamer Template: https://www.overleaf.com/latex/templates/template-beamer-ufc/rvqwnmszpsvf
+# Beamer Template for Presentation: https://www.overleaf.com/latex/templates/template-beamer-ufc/rvqwnmszpsvf
 
 fps = 30
 fs = 48000
@@ -112,7 +112,7 @@ class Solver:
         interior_points = np.transpose(np.array(interior_points))
 
         plt.plot(self.x, self.y, color = np.array([191, 87, 0]) / 255)
-        plt.scatter(interior_points[0], interior_points[1], s = 5, color = np.array([191, 87, 0]) / 255)
+        plt.scatter(interior_points[0], interior_points[1], s = 1, color = np.array([191, 87, 0]) / 255)
         plt.show()
 
         # Create a binary grid denoting the points within the boundary
@@ -205,26 +205,28 @@ class Solver:
 
 if __name__ == '__main__':
     # First isospectral region
-    x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
-    y = np.array([0, 1, 3, 2, 2, 1, 1, 0, 0])
+    #x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
+    #y = np.array([0, 1, 3, 2, 2, 1, 1, 0, 0])
 
     # Second isospectral region
-    x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
-    y = np.array([1, 2, 2, 3, 2, 1, 1, 0, 1])
+    #x = np.array([0, 0, 2, 2, 3, 2, 1, 1, 0])
+    #y = np.array([1, 2, 2, 3, 2, 1, 1, 0, 1])
 
     # Triangular region
     #x = np.array([0, 1, 2, 0])
     #y = np.array([0, 2, 0, 0])
 
     # Square region
-    size = 2
-    #x = np.array([0, 0, size, size, 0])
-    #y = np.array([0, size, size, 0, 0])
+    size = 1
+    x = np.array([0, 0, size, size, 0])
+    y = np.array([0, size, size, 0, 0])
 
     start = time.time()
-    s = Solver(x, y, ngrid = 4)
+    s = Solver(x, y, ngrid = 32)
     s.get_eigs()
     print(time.time() - start)
+
+    print(s.eigvals)
 
     gauss = s.create_gaussian(1.5, 1, sigma = 0.1)
     s.calc_consts(gauss)
