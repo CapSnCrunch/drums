@@ -3,7 +3,7 @@ Simulate ripples through arbitrarily drawn drum faces!
 
 <p align='center'>
   <img src='imgs/simulation.gif' width='250'>
-  <h5 align = 'center'>Example of simulated waves in a star-shaped drum./h5>
+  <h5 align = 'center'>Example of simulated waves in a star-shaped drum.</h5>
 </p>
 
 ## Steps to Use
