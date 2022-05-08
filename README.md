@@ -1,6 +1,11 @@
 # Drums
 Simulate ripples through arbitrarily drawn drum faces!
 
+<p align='center'>
+  <img src='imgs/simulation.gif' width='200'>
+  <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
+</p>
+
 ## Steps to Use
 **1)** Run interface.py to use the interactive pygame window.<br/><br/>
 **2)** Draw your simple, closed, polygon drum.<br/>
@@ -18,13 +23,8 @@ Simulate ripples through arbitrarily drawn drum faces!
 </p>
 
 <p align='center' style='flex'>
-  <img src='imgs/discretization.PNG' width='250'>
-  <img src='imgs/matrix.PNG' width='250'>
-  <img src='imgs/eigenfunctions.PNG' width='250'>
-  <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
-</p>
-
-<p align='center'>
-  <img src='imgs/simulation.gif' width='300'>
+  <img src='imgs/discretization.PNG' height='250'>
+  <img src='imgs/matrix.PNG' height='250'>
+  <img src='imgs/eigenfunctions.PNG' height='250'>
   <h5 align = 'center'>Example of piecewise linear gradient selection</h5>
 </p>
