@@ -30,3 +30,6 @@ Simulate ripples through arbitrarily drawn drum faces!
   <img src='imgs/eigenfunctions.PNG' height='250'>
   <h5 align = 'center'>Example of discretization, sparse finite-difference matrix, and eigenfunctions of the above drum.</h5>
 </p>
+
+## Mathematical Background
+The simulation involves a finite-difference method of approximating the wave equation for an arbitrary boundary. By discretizing the simple closed polygon, we can construct a discrete laplacian from which we can approximate eigenfunctions and iterate them under the wave equation. Read my article <a href='https://capsncrunch.github.io/articles/can_you_hear_the_shape_of_a_drum.html'>here</a> for all the details.
